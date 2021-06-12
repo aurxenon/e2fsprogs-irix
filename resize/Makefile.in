@@ -28,7 +28,7 @@ SRCS= $(srcdir)/extent.c \
 	$(srcdir)/resource_track.c \
 	$(srcdir)/sim_progress.c
 
-LIBS= $(LIBE2P) $(LIBEXT2FS) $(LIBCOM_ERR) $(LIBINTL) $(SYSLIBS)
+LIBS= $(LIBE2P) $(LIBEXT2FS) $(LIBCOM_ERR) -lgen $(LIBINTL) $(SYSLIBS)
 DEPLIBS= $(LIBE2P) $(LIBEXT2FS) $(DEPLIBCOM_ERR)
 
 STATIC_LIBS= $(STATIC_LIBE2P) $(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) \

@@ -278,91 +278,91 @@ ext2fs.pc: $(srcdir)/ext2fs.pc.in $(top_builddir)/config.status
 
 tst_badblocks: tst_badblocks.o $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_badblocks tst_badblocks.o $(ALL_LDFLAGS) \
+	$(Q) $(CC) -o tst_badblocks tst_badblocks.o -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_digest_encode: $(srcdir)/digest_encode.c $(srcdir)/ext2_fs.h
 	$(E) "	CC $@"
-	$(Q) $(CC) $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_digest_encode \
+	$(Q) $(CC) -lgen $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_digest_encode \
 		$(srcdir)/digest_encode.c -DUNITTEST $(SYSLIBS)
 
 tst_icount: $(srcdir)/icount.c $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_icount $(srcdir)/icount.c -DDEBUG \
-		$(ALL_CFLAGS) $(ALL_LDFLAGS) \
+		$(ALL_CFLAGS) -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_iscan: tst_iscan.o $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_iscan tst_iscan.o $(ALL_LDFLAGS) \
+	$(Q) $(CC) -o tst_iscan tst_iscan.o -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_getsize: tst_getsize.o $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_getsize tst_getsize.o $(ALL_LDFLAGS) \
+	$(Q) $(CC) -o tst_getsize tst_getsize.o -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_ismounted: $(srcdir)/ismounted.c $(STATIC_LIBEXT2FS) \
 		$(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_ismounted $(srcdir)/ismounted.c \
-		$(STATIC_LIBEXT2FS) -DDEBUG $(ALL_CFLAGS) $(ALL_LDFLAGS) \
+		$(STATIC_LIBEXT2FS) -DDEBUG $(ALL_CFLAGS) -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_byteswap: tst_byteswap.o $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_byteswap tst_byteswap.o $(ALL_LDFLAGS) \
+	$(Q) $(CC) -o tst_byteswap tst_byteswap.o -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_bitops: tst_bitops.o $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_bitops tst_bitops.o $(ALL_CFLAGS) $(ALL_LDFLAGS) \
+	$(Q) $(CC) -o tst_bitops tst_bitops.o $(ALL_CFLAGS) -lgen $(ALL_LDFLAGS) \
 		$(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_getsectsize: tst_getsectsize.o getsectsize.o $(STATIC_LIBEXT2FS) \
 			$(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_getsectsize tst_getsectsize.o getsectsize.o \
-		$(ALL_LDFLAGS) $(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) \
+		-lgen $(ALL_LDFLAGS) $(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) \
 		$(SYSLIBS)
 
 tst_types.o: $(srcdir)/tst_types.c ext2_types.h 
 
 tst_types: tst_types.o ext2_types.h 
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_types tst_types.o $(ALL_LDFLAGS) $(SYSLIBS)
+	$(Q) $(CC) -o tst_types tst_types.o -lgen $(ALL_LDFLAGS) $(SYSLIBS)
 
 tst_super_size.o: $(srcdir)/tst_super_size.c $(srcdir)/ext2_fs.h
 
 tst_super_size: tst_super_size.o
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_super_size tst_super_size.o $(ALL_LDFLAGS) $(SYSLIBS)
+	$(Q) $(CC) -o tst_super_size tst_super_size.o -lgen $(ALL_LDFLAGS) $(SYSLIBS)
 
 tst_fs_struct.o: $(srcdir)/tst_fs_struct.c $(srcdir)/ext2fs.h
 
 tst_fs_struct: tst_fs_struct.o
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_fs_struct tst_fs_struct.o $(ALL_LDFLAGS) $(SYSLIBS)
+	$(Q) $(CC) -o tst_fs_struct tst_fs_struct.o -lgen $(ALL_LDFLAGS) $(SYSLIBS)
 
 tst_inode_size.o: $(srcdir)/tst_inode_size.c $(srcdir)/ext2_fs.h
 
 tst_inode_size: tst_inode_size.o
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_inode_size tst_inode_size.o $(ALL_LDFLAGS) $(SYSLIBS)
+	$(Q) $(CC) -o tst_inode_size tst_inode_size.o -lgen $(ALL_LDFLAGS) $(SYSLIBS)
 
 tst_sha256: $(srcdir)/sha256.c $(srcdir)/ext2_fs.h
 	$(E) "	CC $@"
-	$(Q) $(CC) $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_sha256 \
+	$(Q) $(CC) -lgen $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_sha256 \
 		$(srcdir)/sha256.c -DUNITTEST $(SYSLIBS)
 
 tst_sha512: $(srcdir)/sha512.c $(srcdir)/ext2_fs.h
 	$(E) "	CC $@"
-	$(Q) $(CC) $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_sha512 \
+	$(Q) $(CC) -lgen $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_sha512 \
 		$(srcdir)/sha512.c -DUNITTEST $(SYSLIBS)
 
 ext2_tdbtool: tdbtool.o
 	$(E) "	LD $@"
-	$(Q) $(CC) -o ext2_tdbtool tdbtool.o tdb.o $(ALL_LDFLAGS) $(SYSLIBS)
+	$(Q) $(CC) -o ext2_tdbtool tdbtool.o tdb.o -lgen $(ALL_LDFLAGS) $(SYSLIBS)
 
 tst_cmds.c tst_cmds.h: tst_cmds.ct
 	$(E) "	MK_CMDS $@"
@@ -466,7 +466,7 @@ filefrag.o: $(top_srcdir)/debugfs/filefrag.c
 
 tst_libext2fs.o: $(srcdir)/tst_libext2fs.c
 	$(E) "	CC $<"
-	$(Q) $(CC) $(ALL_CFLAGS) $(ALL_LDFLAGS) $(DEPEND_CFLAGS) -c $< -o $@
+	$(Q) $(CC) $(ALL_CFLAGS) -lgen $(ALL_LDFLAGS) $(DEPEND_CFLAGS) -c $< -o $@
 
 tst_bitmaps_cmd.c: tst_bitmaps_cmd.ct
 	$(E) "	MK_CMDS $@"
@@ -477,7 +477,7 @@ tst_bitmaps: tst_bitmaps.o tst_bitmaps_cmd.o $(srcdir)/blkmap64_rb.c \
 	$(E) "	LD $@"
 	$(Q) $(CC) -o $@ tst_bitmaps.o tst_bitmaps_cmd.o \
 		-DDEBUG_RB $(srcdir)/blkmap64_rb.c $(ALL_CFLAGS) \
-		$(ALL_LDFLAGS) $(STATIC_LIBEXT2FS) $(STATIC_LIBSS) \
+		-lgen $(ALL_LDFLAGS) $(STATIC_LIBEXT2FS) $(STATIC_LIBSS) \
 		$(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_extents: $(srcdir)/extent.c $(DEBUG_OBJS) $(DEPSTATIC_LIBSS) libext2fs.a \
@@ -485,7 +485,7 @@ tst_extents: $(srcdir)/extent.c $(DEBUG_OBJS) $(DEPSTATIC_LIBSS) libext2fs.a \
 	$(DEPLIBSUPPORT)
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_extents $(srcdir)/extent.c \
-		$(ALL_CFLAGS) $(ALL_LDFLAGS) -DDEBUG $(DEBUG_OBJS) \
+		$(ALL_CFLAGS) -lgen $(ALL_LDFLAGS) -DDEBUG $(DEBUG_OBJS) \
 		$(STATIC_LIBSS) $(STATIC_LIBE2P) $(LIBSUPPORT) \
 		$(STATIC_LIBEXT2FS) $(LIBBLKID) $(LIBUUID) \
 		$(STATIC_LIBCOM_ERR) $(SYSLIBS) -I $(top_srcdir)/debugfs
@@ -494,7 +494,7 @@ tst_libext2fs: $(DEBUG_OBJS) \
 	$(DEPSTATIC_LIBSS) $(STATIC_LIBE2P) $(DEPLIBUUID) libext2fs.a \
 	$(DEPLIBBLKID) $(DEPSTATIC_LIBCOM_ERR) $(DEPLIBSUPPORT)
 	$(E) "	LD $@"
-	$(Q) $(CC) -o tst_libext2fs $(ALL_LDFLAGS) -DDEBUG $(DEBUG_OBJS) \
+	$(Q) $(CC) -o tst_libext2fs -lgen $(ALL_LDFLAGS) -DDEBUG $(DEBUG_OBJS) \
 		$(STATIC_LIBSS) $(STATIC_LIBE2P) $(LIBSUPPORT) \
 		$(STATIC_LIBEXT2FS) $(LIBBLKID) $(LIBUUID) $(LIBMAGIC) \
 		$(STATIC_LIBCOM_ERR) $(SYSLIBS) -I $(top_srcdir)/debugfs
@@ -502,24 +502,24 @@ tst_libext2fs: $(DEBUG_OBJS) \
 tst_inline: $(srcdir)/inline.c $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_inline $(srcdir)/inline.c $(ALL_CFLAGS) \
-		$(ALL_LDFLAGS) -DDEBUG $(STATIC_LIBEXT2FS) \
+		-lgen $(ALL_LDFLAGS) -DDEBUG $(STATIC_LIBEXT2FS) \
 		$(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_inline_data: inline_data.c $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_inline_data $(srcdir)/inline_data.c $(ALL_CFLAGS) \
-		$(ALL_LDFLAGS) -DDEBUG $(STATIC_LIBEXT2FS) \
+		-lgen $(ALL_LDFLAGS) -DDEBUG $(STATIC_LIBEXT2FS) \
 		$(STATIC_LIBCOM_ERR) $(SYSLIBS)
 
 tst_csum: csum.c $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR) $(STATIC_LIBE2P) \
 		$(top_srcdir)/lib/e2p/e2p.h
 	$(E) "	LD $@"
 	$(Q) $(CC) -o tst_csum $(srcdir)/csum.c -DDEBUG \
-		$(ALL_CFLAGS) $(ALL_LDFLAGS) $(STATIC_LIBEXT2FS) \
+		$(ALL_CFLAGS) -lgen $(ALL_LDFLAGS) $(STATIC_LIBEXT2FS) \
 		$(STATIC_LIBCOM_ERR) $(STATIC_LIBE2P) $(SYSLIBS)
 
 tst_crc32c: $(srcdir)/crc32c.c $(STATIC_LIBEXT2FS) $(DEPSTATIC_LIBCOM_ERR)
-	$(Q) $(CC) $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_crc32c $(srcdir)/crc32c.c \
+	$(Q) $(CC) -lgen $(ALL_LDFLAGS) $(ALL_CFLAGS) -o tst_crc32c $(srcdir)/crc32c.c \
 		-DUNITTEST $(STATIC_LIBEXT2FS) $(STATIC_LIBCOM_ERR) \
 		$(SYSLIBS)
 

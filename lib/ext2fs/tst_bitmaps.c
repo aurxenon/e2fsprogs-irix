@@ -110,6 +110,9 @@ void reset_getopt(void)
 #else
 	optind = 1;
 #endif
+#ifdef __sgi
+#undef HAVE_OPTRESET
+#endif
 #ifdef HAVE_OPTRESET
 	optreset = 1;		/* Makes BSD getopt happy */
 #endif

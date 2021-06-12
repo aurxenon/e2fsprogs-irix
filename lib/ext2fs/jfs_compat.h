@@ -35,7 +35,9 @@
 #define le64_to_cpu(x)	ext2fs_le64_to_cpu(x)
 #define be64_to_cpu(x)	ext2fs_be64_to_cpu(x)
 
+#ifndef __sgi
 typedef unsigned int tid_t;
+#endif
 typedef struct journal_s journal_t;
 typedef struct kdev_s *kdev_t;
 

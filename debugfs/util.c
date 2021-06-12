@@ -22,6 +22,9 @@
 extern int optind;
 extern char *optarg;
 #endif
+#ifdef __sgi
+#undef HAVE_OPTRESET
+#endif
 #ifdef HAVE_OPTRESET
 extern int optreset;		/* defined by BSD, but not others */
 #endif

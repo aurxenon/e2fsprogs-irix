@@ -31,6 +31,9 @@ extern int errno;
 #include <signal.h>
 #ifdef HAVE_SYS_PRCTL_H
 #include <sys/prctl.h>
+#ifdef __sgi
+#define PR_GET_DUMPABLE 3
+#endif
 #else
 #define PR_GET_DUMPABLE 3
 #endif

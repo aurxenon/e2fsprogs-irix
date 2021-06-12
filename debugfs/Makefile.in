@@ -62,7 +62,7 @@ all:: $(PROGS) $(MANPAGES)
 
 debugfs: $(DEBUG_OBJS) $(DEPLIBS)
 	$(E) "	LD $@"
-	$(Q) $(CC) $(ALL_LDFLAGS) -o debugfs $(DEBUG_OBJS) $(LIBS)
+	$(Q) $(CC) $(ALL_LDFLAGS) -lgen -lpopt -lintl -o debugfs $(DEBUG_OBJS) $(LIBS)
 
 debugfs.static: $(DEBUG_OBJS) $(STATIC_DEPLIBS)
 	$(E) "	LD $@"

@@ -116,7 +116,7 @@ all-static:: e2fsck.static
 
 e2fsck: $(OBJS)  $(DEPLIBS)
 	$(E) "	LD $@"
-	$(Q) $(LD) $(ALL_LDFLAGS) $(RDYNAMIC) -o e2fsck $(OBJS) $(LIBS) 
+	$(Q) $(LD) $(ALL_LDFLAGS) -lPW -lkrb5 -o e2fsck $(OBJS) $(LIBS) 
 
 e2fsck.static: $(OBJS) $(STATIC_DEPLIBS)
 	$(E) "	LD $@"

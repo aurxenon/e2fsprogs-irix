@@ -47,6 +47,10 @@ extern int optind;
 #endif
 #include <libgen.h>
 
+#ifdef __sgi
+#include <limits.h>
+#endif
+
 #include "e2p/e2p.h"
 #include "et/com_err.h"
 #include "e2p/e2p.h"
@@ -290,7 +294,11 @@ static int is_on_batt(void)
 {
 	FILE	*f;
 	DIR	*d;
+#ifndef __sgi
 	char	tmp[80], tmp2[80], fname[NAME_MAX+30];
+#else
+	char    tmp[80], tmp2[80], fname[255+30];
+#endif
 	unsigned int	acflag;
 	struct dirent*	de;
 

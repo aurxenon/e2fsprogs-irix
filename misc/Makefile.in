@@ -174,20 +174,20 @@ partinfo: partinfo.o $(DEPLIBCOM_ERR)
 e2initrd_helper: e2initrd_helper.o $(DEPLIBS) $(DEPLIBBLKID) $(LIBEXT2FS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o e2initrd_helper e2initrd_helper.o $(LIBS) \
-		$(LIBBLKID) $(LIBEXT2FS) $(LIBINTL) $(SYSLIBS)
+		$(LIBBLKID) $(LIBEXT2FS) -lgen $(LIBINTL) $(SYSLIBS)
 
 tune2fs: $(TUNE2FS_OBJS) $(DEPLIBS) $(DEPLIBS_E2P) $(DEPLIBBLKID) \
 		$(DEPLIBUUID) $(LIBEXT2FS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o tune2fs $(TUNE2FS_OBJS) $(LIBS) \
 		$(LIBBLKID) $(LIBUUID) $(LIBEXT2FS) $(LIBS_E2P) \
-		$(LIBINTL) $(SYSLIBS) $(LIBBLKID) $(LIBMAGIC)
+		-lgen $(LIBINTL) $(SYSLIBS) $(LIBBLKID) $(LIBMAGIC)
 
 tune2fs.static: $(TUNE2FS_OBJS) $(STATIC_DEPLIBS) $(STATIC_LIBE2P) $(DEPSTATIC_LIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(LDFLAGS_STATIC) -o tune2fs.static $(TUNE2FS_OBJS) \
 		$(STATIC_LIBS) $(STATIC_LIBBLKID) $(STATIC_LIBUUID) \
-		$(STATIC_LIBE2P) $(LIBINTL) $(SYSLIBS) \
+		$(STATIC_LIBE2P) -lgen $(LIBINTL) $(SYSLIBS) \
 		$(STATIC_LIBBLKID) $(LIBMAGIC)
 
 tune2fs.profiled: $(TUNE2FS_OBJS) $(PROFILED_DEPLIBS) \
@@ -196,50 +196,50 @@ tune2fs.profiled: $(TUNE2FS_OBJS) $(PROFILED_DEPLIBS) \
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o tune2fs.profiled \
 		$(PROFILED_TUNE2FS_OBJS) $(PROFILED_LIBS) \
 		$(PROFILED_LIBBLKID) $(PROFILED_LIBUUID) $(PROFILED_LIBE2P) \
-		$(LIBINTL) $(SYSLIBS) $(PROFILED_LIBUUID) $(LIBMAGIC)
+		-lgen $(LIBINTL) $(SYSLIBS) $(PROFILED_LIBUUID) $(LIBMAGIC)
 
 blkid: $(BLKID_OBJS) $(DEPLIBBLKID) $(LIBEXT2FS)
 	$(E) "	LD $@"
-	$(Q) $(CC) $(ALL_LDFLAGS) -o blkid $(BLKID_OBJS) $(LIBBLKID) $(LIBINTL) \
+	$(Q) $(CC) $(ALL_LDFLAGS) -o blkid $(BLKID_OBJS) $(LIBBLKID) -lgen $(LIBINTL) \
 		$(LIBEXT2FS) $(SYSLIBS)
 
 blkid.static: $(BLKID_OBJS) $(STATIC_DEPLIBS) $(DEPSTATIC_LIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o blkid.static $(BLKID_OBJS) $(STATIC_LIBS) \
-		$(STATIC_LIBBLKID) $(LIBINTL) $(SYSLIBS)
+		$(STATIC_LIBBLKID) -lgen $(LIBINTL) $(SYSLIBS)
 
 blkid.profiled: $(BLKID_OBJS) $(DEPPROFILED_LIBBLKID) \
 		$(PROFILED_LIBEXT2FS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o blkid.profiled $(PROFILED_BLKID_OBJS) \
-		$(PROFILED_LIBBLKID) $(LIBINTL) $(PROFILED_LIBEXT2FS) $(SYSLIBS)
+		$(PROFILED_LIBBLKID) -lgen $(LIBINTL) $(PROFILED_LIBEXT2FS) $(SYSLIBS)
 
 e2image: $(E2IMAGE_OBJS) $(DEPLIBS) $(DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o e2image $(E2IMAGE_OBJS) $(LIBS) \
-		$(LIBINTL) $(SYSLIBS) $(LIBBLKID) $(LIBMAGIC)
+		-lgen $(LIBINTL) $(SYSLIBS) $(LIBBLKID) $(LIBMAGIC)
 
 e2image.profiled: $(E2IMAGE_OBJS) $(PROFILED_DEPLIBS) $(DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o e2image.profiled \
-		$(PROFILED_E2IMAGE_OBJS) $(PROFILED_LIBS) $(LIBINTL) $(SYSLIBS) \
+		$(PROFILED_E2IMAGE_OBJS) $(PROFILED_LIBS) -lgen $(LIBINTL) $(SYSLIBS) \
 		$(LIBBLKID) $(LIBMAGIC)
 
 e2image.static: $(E2IMAGE_OBJS) $(PROFILED_DEPLIBS) $(DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(LDFLAGS_STATIC) -g -pg -o e2image.static \
-		$(E2IMAGE_OBJS) $(STATIC_LIBS) $(LIBINTL) $(SYSLIBS) \
+		$(E2IMAGE_OBJS) $(STATIC_LIBS) -lgen $(LIBINTL) $(SYSLIBS) \
 		$(STATIC_LIBBLKID) $(LIBMAGIC)
 
 e2undo: $(E2UNDO_OBJS) $(DEPLIBS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o e2undo $(E2UNDO_OBJS) $(LIBS) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 e2undo.profiled: $(E2UNDO_OBJS) $(PROFILED_DEPLIBS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o e2undo.profiled \
-		$(PROFILED_E2UNDO_OBJS) $(PROFILED_LIBS) $(LIBINTL) $(SYSLIBS)
+		$(PROFILED_E2UNDO_OBJS) $(PROFILED_LIBS) -lgen $(LIBINTL) $(SYSLIBS)
 
 e4defrag: $(E4DEFRAG_OBJS) $(DEPLIBS)
 	$(E) "	LD $@"
@@ -274,13 +274,13 @@ fullcheck check:: base_device
 mklost+found: $(MKLPF_OBJS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o mklost+found $(MKLPF_OBJS) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 mke2fs: $(MKE2FS_OBJS) $(DEPLIBS) $(LIBE2P) $(DEPLIBBLKID) $(DEPLIBUUID) \
 		$(LIBEXT2FS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o mke2fs $(MKE2FS_OBJS) $(LIBS) $(LIBBLKID) \
-		$(LIBUUID) $(LIBEXT2FS) $(LIBE2P) $(LIBINTL) \
+		$(LIBUUID) $(LIBEXT2FS) $(LIBE2P) -lgen $(LIBINTL) \
 		$(SYSLIBS) $(LIBMAGIC)
 
 mke2fs.static: $(MKE2FS_OBJS) $(STATIC_DEPLIBS) $(STATIC_LIBE2P) $(DEPSTATIC_LIBUUID) \
@@ -288,7 +288,7 @@ mke2fs.static: $(MKE2FS_OBJS) $(STATIC_DEPLIBS) $(STATIC_LIBE2P) $(DEPSTATIC_LIB
 	$(E) "	LD $@"
 	$(Q) $(CC) $(LDFLAGS_STATIC) -o mke2fs.static $(MKE2FS_OBJS) \
 		$(STATIC_LIBS) $(STATIC_LIBE2P) \
-		$(STATIC_LIBBLKID) $(STATIC_LIBUUID) $(LIBINTL) $(SYSLIBS) \
+		$(STATIC_LIBBLKID) $(STATIC_LIBUUID) -lgen $(LIBINTL) $(SYSLIBS) \
 		$(LIBMAGIC)
 
 mke2fs.profiled: $(MKE2FS_OBJS) $(PROFILED_DEPLIBS) \
@@ -297,53 +297,53 @@ mke2fs.profiled: $(MKE2FS_OBJS) $(PROFILED_DEPLIBS) \
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o mke2fs.profiled \
 		$(PROFILED_MKE2FS_OBJS) $(PROFILED_LIBBLKID) \
 		$(PROFILED_LIBUUID) $(PROFILED_LIBE2P) \
-		$(LIBINTL) $(PROFILED_LIBS) $(SYSLIBS) $(LIBMAGIC)
+		-lgen $(LIBINTL) $(PROFILED_LIBS) $(SYSLIBS) $(LIBMAGIC)
 
 chattr: $(CHATTR_OBJS) $(DEPLIBS_E2P)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o chattr $(CHATTR_OBJS) $(LIBS_E2P) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 chattr.static: $(CHATTR_OBJS) $(STATIC_LIBE2P) $(STATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o chattr.static $(CHATTR_OBJS) $(STATIC_LIBE2P) \
-		$(STATIC_LIBCOM_ERR) $(LIBINTL) $(SYSLIBS)
+		$(STATIC_LIBCOM_ERR) -lgen $(LIBINTL) $(SYSLIBS)
 
 lsattr: $(LSATTR_OBJS) $(DEPLIBS_E2P)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o lsattr $(LSATTR_OBJS) $(LIBS_E2P) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 lsattr.static: $(LSATTR_OBJS) $(STATIC_LIBE2P) $(STATIC_LIBCOM_ERR)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o lsattr.static $(LSATTR_OBJS) $(STATIC_LIBE2P) \
-		$(STATIC_LIBCOM_ERR) $(LIBINTL) $(SYSLIBS)
+		$(STATIC_LIBCOM_ERR) -lgen $(LIBINTL) $(SYSLIBS)
 
 uuidgen: $(UUIDGEN_OBJS) $(DEPLIBUUID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o uuidgen $(UUIDGEN_OBJS) $(LIBUUID) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 uuidgen.profiled: $(UUIDGEN_OBJS) $(PROFILED_DEPLIBUUID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o uuidgen.profiled \
-		$(PROFILED_UUIDGEN_OBJS) $(PROFILED_LIBUUID) $(LIBINTL) \
+		$(PROFILED_UUIDGEN_OBJS) $(PROFILED_LIBUUID) -lgen $(LIBINTL) \
 		$(SYSLIBS)
 
 uuidd: $(UUIDD_OBJS) $(DEPLIBUUID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o uuidd $(UUIDD_OBJS) $(LIBUUID) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 uuidd.profiled: $(UUIDD_OBJS) $(PROFILED_DEPLIBUUID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o uuidd.profiled $(PROFILED_UUIDD_OBJS) \
-		$(PROFILED_LIBUUID) $(LIBINTL) $(SYSLIBS)
+		$(PROFILED_LIBUUID) -lgen $(LIBINTL) $(SYSLIBS)
 
 dumpe2fs: $(DUMPE2FS_OBJS) $(DEPLIBS) $(DEPLIBS_E2P) $(DEPLIBUUID) $(DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o dumpe2fs $(DUMPE2FS_OBJS) $(LIBS) \
-		$(LIBS_E2P) $(LIBUUID) $(LIBINTL) $(SYSLIBS) $(LIBBLKID) \
+		$(LIBS_E2P) $(LIBUUID) -lgen $(LIBINTL) $(SYSLIBS) $(LIBBLKID) \
 		$(LIBMAGIC)
 
 dumpe2fs.profiled: $(DUMPE2FS_OBJS) $(PROFILED_DEPLIBS) \
@@ -351,34 +351,34 @@ dumpe2fs.profiled: $(DUMPE2FS_OBJS) $(PROFILED_DEPLIBS) \
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o dumpe2fs.profiled \
 		$(PROFILED_DUMPE2FS_OBJS) $(PROFILED_LIBS) \
-		$(PROFILED_LIBE2P) $(PROFILED_LIBUUID) $(LIBINTL) $(SYSLIBS) \
+		$(PROFILED_LIBE2P) $(PROFILED_LIBUUID) -lgen $(LIBINTL) $(SYSLIBS) \
 		$(PROFILED_LIBBLKID) $(LIBMAGIC)
 
 dumpe2fs.static: $(DUMPE2FS_OBJS) $(DEPLIBS) $(DEPLIBS_E2P) $(DEPLIBUUID) $(DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(LDFLAGS_STATIC) -o dumpe2fs.static $(DUMPE2FS_OBJS) \
 		$(STATIC_LIBS) $(STATIC_LIBE2P) $(STATIC_LIBUUID) \
-		$(LIBINTL) $(SYSLIBS) $(STATIC_LIBBLKID) $(LIBMAGIC)
+		-lgen $(LIBINTL) $(SYSLIBS) $(STATIC_LIBBLKID) $(LIBMAGIC)
 
 fsck: $(FSCK_OBJS) $(DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o fsck $(FSCK_OBJS) $(LIBBLKID) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 fsck.profiled: $(FSCK_OBJS) $(PROFILED_DEPLIBBLKID)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o fsck.profiled $(PROFILED_FSCK_OBJS) \
-		$(PROFILED_LIBBLKID) $(LIBINTL) $(SYSLIBS)
+		$(PROFILED_LIBBLKID) -lgen $(LIBINTL) $(SYSLIBS)
 
 badblocks: $(BADBLOCKS_OBJS) $(DEPLIBS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o badblocks $(BADBLOCKS_OBJS) $(LIBS) \
-		$(LIBINTL) $(SYSLIBS)
+		-lgen $(LIBINTL) $(SYSLIBS)
 
 badblocks.profiled: $(BADBLOCKS_OBJS) $(PROFILED_DEPLIBS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -g -pg -o badblocks.profiled \
-		$(PROFILED_BADBLOCKS_OBJS) $(PROFILED_LIBS) $(LIBINTL) \
+		$(PROFILED_BADBLOCKS_OBJS) $(PROFILED_LIBS) -lgen $(LIBINTL) \
 		$(SYSLIBS)
 
 logsave: logsave.o
@@ -423,7 +423,7 @@ fuse2fs: $(FUSE2FS_OBJS) $(DEPLIBS) $(DEPLIBBLKID) $(DEPLIBUUID) \
 		$(LIBEXT2FS)
 	$(E) "	LD $@"
 	$(Q) $(CC) $(ALL_LDFLAGS) -o fuse2fs $(FUSE2FS_OBJS) $(LIBS) \
-		$(LIBFUSE) $(LIBBLKID) $(LIBUUID) $(LIBEXT2FS) $(LIBINTL) \
+		$(LIBFUSE) $(LIBBLKID) $(LIBUUID) $(LIBEXT2FS) -lgen $(LIBINTL) \
 		$(CLOCK_GETTIME_LIB) $(SYSLIBS)
 
 journal.o: $(srcdir)/../debugfs/journal.c
